@@ -10,6 +10,35 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render
 from django.contrib.auth.decorators import user_passes_test
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import permission_required
+from .models import Book
+
+# View to add a book
+@permission_required('relationship_app.can_add_book', raise_exception=True)
+def add_book(request):
+    if request.method == "POST":
+        # logic to save book goes here
+        pass
+    return render(request, 'relationship_app/add_book.html')
+
+# View to edit a book
+@permission_required('relationship_app.can_change_book', raise_exception=True)
+def edit_book(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+    if request.method == "POST":
+        # logic to update book goes here
+        pass
+    return render(request, 'relationship_app/edit_book.html', {'book': book})
+
+# View to delete a book
+@permission_required('relationship_app.can_delete_book', raise_exception=True)
+def delete_book(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+    if request.method == "POST":
+        book.delete()
+        return redirect('list_books')
+    return render(request, 'relationship_app/delete_confirm.html', {'book': book})
 
 # Check functions
 def is_admin(user):
