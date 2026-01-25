@@ -127,3 +127,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'list_books'  # Redirect to book list after login
 LOGOUT_REDIRECT_URL = 'login'      # Redirect to login page after logout
+# settings.py
+
+# Replace 'users' with whatever your app name is
+AUTH_USER_MODEL = 'users.CustomUser'
+
+# Ensure you have media settings configured for the profile_photo field
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
