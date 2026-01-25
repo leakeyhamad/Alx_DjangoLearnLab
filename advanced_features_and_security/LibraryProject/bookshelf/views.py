@@ -7,6 +7,7 @@ from .models import Book
 # bookshelf/views.py
 from django.shortcuts import render
 from .models import Book
+from .forms import ExampleForm
 
 def search_books(request):
     query = request.GET.get('q', '')
