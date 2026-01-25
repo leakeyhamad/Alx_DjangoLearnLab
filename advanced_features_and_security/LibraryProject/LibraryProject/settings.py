@@ -130,6 +130,10 @@ LOGOUT_REDIRECT_URL = 'login'      # Redirect to login page after logout
 # settings.py
 
 # Replace 'users' with whatever your app name is
+# settings.py
+
+# The format is 'app_name.ModelName'
+AUTH_USER_MODEL = 'bookshelf.CustomUser'
 AUTH_USER_MODEL = 'users.CustomUser'
 
 # Ensure you have media settings configured for the profile_photo field
