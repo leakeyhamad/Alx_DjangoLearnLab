@@ -78,6 +78,42 @@ TEMPLATES = [
 WSGI_APPLICATION = 'LibraryProject.wsgi.application'
 
 
+# LibraryProject/settings.py
+
+# --- HTTPS and SSL/TLS Settings ---
+
+# Redirect all HTTP requests to HTTPS
+SECURE_SSL_REDIRECT = True
+
+# HTTP Strict Transport Security (HSTS)
+# Instructs the browser to only connect via HTTPS for the next year
+SECURE_HSTS_SECONDS = 31536000 
+# Apply HSTS to all subdomains (e.g., api.yourdomain.com)
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# Allows your site to be included in the browser's HSTS preload list
+SECURE_HSTS_PRELOAD = True
+
+
+# --- Secure Cookies ---
+
+# Ensure session cookies are only sent over HTTPS connections
+SESSION_COOKIE_SECURE = True
+# Ensure CSRF cookies are only sent over HTTPS connections
+CSRF_COOKIE_SECURE = True
+
+
+# --- Security Headers ---
+
+# Prevent the site from being rendered in an <iframe> (protects against Clickjacking)
+X_FRAME_OPTIONS = 'DENY'
+
+# Prevent the browser from guessing the content type (prevents MIME-sniffing)
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Enable the browser's built-in XSS filter
+SECURE_BROWSER_XSS_FILTER = True
+
+
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
