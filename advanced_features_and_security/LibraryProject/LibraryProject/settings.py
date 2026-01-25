@@ -49,7 +49,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'csp.middleware.CSPMiddleware',
 ]
+
+# Basic CSP: Only allow content from your own domain
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_STYLE_SRC = ("'self'", "https://fonts.googleapis.com") # Example: allow Google Fonts
+CSP_SCRIPT_SRC = ("'self'",)
 
 ROOT_URLCONF = 'LibraryProject.urls'
 
@@ -124,6 +130,24 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # settings.py
+# LibraryProject/settings.py
+
+# 1. Disable DEBUG in production to prevent leaking sensitive tracebacks
+DEBUG = False
+
+# 2. Browser-side protections against XSS and Sniffing
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'  # Prevents Clickjacking
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# 3. Enforce HTTPS for sensitive cookies
+# Note: Ensure your site is served over HTTPS before enabling these
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+# 4. Secure Proxy settings (standard if behind a proxy like Nginx)
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True # Redirects all HTTP requests to HTTPS
 
 LOGIN_REDIRECT_URL = 'list_books'  # Redirect to book list after login
 LOGOUT_REDIRECT_URL = 'login'      # Redirect to login page after logout

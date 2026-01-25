@@ -4,6 +4,21 @@ from django.shortcuts import render
 from django.shortcuts import render, get_object_or_create
 from django.contrib.auth.decorators import permission_required
 from .models import Book
+# bookshelf/views.py
+from django.shortcuts import render
+from .models import Book
+
+def search_books(request):
+    query = request.GET.get('q', '')
+    
+    # SECURE: Use Django's ORM which parameterizes the query automatically
+    # This prevents SQL Injection by treating user input as data, not code.
+    books = Book.objects.filter(title__icontains=query)
+    
+    # INSECURE (Example of what NOT to do):
+    # books = Book.objects.raw(f"SELECT * FROM bookshelf_book WHERE title = '{query}'")
+    
+    return render(request, 'bookshelf/book_list.html', {'books': books})
 
 @permission_required('bookshelf.can_view', raise_exception=True)
 def list_books(request):
