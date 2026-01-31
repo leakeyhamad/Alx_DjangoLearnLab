@@ -17,9 +17,12 @@ Including another URLconf
 
 
 from django.contrib import admin
+
 from django.urls import path, include
+from rest_framework.authtoken.views import obtain_auth_token # Import this
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('api.urls')), # This prefixes your routes with /api/
+    path('api/', include('api.urls')),
+    path('get-token/', obtain_auth_token), # Users POST credentials here
 ]

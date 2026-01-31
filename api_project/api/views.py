@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from rest_framework import viewsets, permissions
 
 # Create your views here.
 from rest_framework import viewsets, generics
@@ -17,3 +18,4 @@ class BookViewSet(viewsets.ModelViewSet):
     """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    permission_classes = [permissions.IsAuthenticated]
